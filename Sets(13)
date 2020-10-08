@@ -1,0 +1,44 @@
+#17)  Introduction to sets:
+
+def average(array):
+    myset = set(array)
+    myset = float(sum(myset)/len(myset))
+    return(myset)
+
+#18) Symetrical differences:
+
+sizea = input()
+a = list(input().split(' '))
+sizeb = input()
+b = list(input().split(' '))
+c = (a + b)
+d = list(c)
+e = list()
+for x in c:
+    if x in a and x in b:
+        d.remove(x)
+d = ((set(d)))
+for y in d:
+    e.append(int(y))
+for p in sorted(e):
+    print (int(p))
+
+#19) No Idea! 
+
+n = input()
+items = input().split(' ')
+like = set(input().split(' '))
+dislike = set(input().split(' '))
+happy = 0
+for num in items:
+    if num in like:
+        happy += 1
+    elif num in dislike:
+        happy += -1
+    else:
+        happy = happy
+print(happy)
+
+#20) Sets .app():
+
+
