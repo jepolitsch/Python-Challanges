@@ -1,0 +1,92 @@
+#1) Nested Lists:
+students = []
+scores = sorted(set())
+targets = []
+for _ in range(int(raw_input())):
+    name = raw_input()
+    score = float(raw_input())
+    students.append([name, score])
+    scores.append(score)
+
+sortscores = sorted(set(scores))
+lowrun = float(sortscores[1])
+
+for (name, score) in students:
+    if float(score) == float(lowrun):
+        targets.append(name)
+sorttargets = sorted(targets)
+for name in (sorttargets):
+    print(name)
+
+#2) Runner Up Score:
+
+if __name__ == '__main__':
+    n = int(raw_input())
+    arr = map(int, raw_input().split())
+    runup = sorted(list(set(arr)))[-2]
+    print(runup)
+
+
+#3) Finding the Percentage:
+
+if __name__ == '__main__':
+    n = int(raw_input())
+    student_marks = {}
+    for _ in range(n):
+        line = raw_input().split()
+        name, scores = line[0], line[1:]
+        scores = map(float, scores)
+        student_marks[name] = (scores)
+    query_name = raw_input()
+    result = (student_marks[query_name])
+    output = (result[0]+result[1]+result[2])/3
+    print(format(output,'.2f'))
+
+
+#4) List Comprehension:
+
+if __name__ == '__main__':
+    x = int(raw_input())
+    y = int(raw_input())
+    z = int(raw_input())
+    n = int(raw_input())
+    lst = []
+    lst.append([[i,j,k] for i in range(x+1) for j in range(y+1) for k in range(z+1) if (i+j+k != n)])
+    for x in lst:
+            print(x)
+
+#5) Lists:
+
+if __name__ == '__main__':
+    N = int(raw_input())
+    lst = []
+    for x in range(N):
+        command = raw_input().split(' ')
+        if command[0] == 'insert':
+            lst.insert(int(command[1]), int(command[2]))
+        elif command[0] == 'print':
+            print(lst)
+        elif command[0] == 'remove':
+            lst.remove(int(command[1]))
+        elif command[0] == 'append':
+            lst.append(int(command[1]))
+        elif command[0] == 'pop':
+            lst.pop()
+        elif command[0] == 'sort':
+            lst.sort()
+        elif command[0] == 'reverse':
+            lst.reverse()
+        elif command[0] == 'index':
+            lst.index(command[1])
+
+
+#6) Tuples:
+
+if __name__ == '__main__':
+    n = int(raw_input())
+    integer_list = map(int, raw_input().split())
+    tup = tuple()
+    for x in range(len(integer_list)):
+        integer_list[x] = int(integer_list[x])
+    tup = tuple(integer_list)    
+    print hash(tup)
