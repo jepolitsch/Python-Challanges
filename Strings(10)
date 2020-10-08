@@ -1,0 +1,143 @@
+
+#7) String Split and Join:
+
+def swap_case(s):
+    y = ''
+    for letter in s:
+        x = ''
+        if letter.islower():
+            x = letter.upper()
+            y += x
+        else:
+            x = letter.lower()
+            y += x      
+    return(y)
+
+#OR
+
+def swap_case(s):
+	return (s.swapcase())
+
+#8) String split and join:
+
+def split_and_join(line):
+    l = str(line)
+    y = ''
+    for char in l:
+        if char == ' ':
+            y += '-'
+        else:
+            y += char
+    return(y)
+
+#9) Whats your name?:
+
+def print_full_name(a, b):
+    print "Hello "+str(a)+' '+str(b)+"! You just delved into python."
+
+
+#10) Mutations:
+
+def mutate_string(string, position, character):
+    mid = (string[:(position)]+str(character)+string[position+1:])
+    return (mid)
+
+#11) String Validators:
+
+if __name__ == '__main__':
+    s = list(input())
+    alnum = 'False'
+    alpha = 'False'
+    digit = 'False'
+    lower = 'False'
+    upper = 'False'
+    for l in s:
+        if l.isalnum() == True:
+            alnum = 'True'
+        if l.isalpha() == True:
+            alpha = 'True'
+        if l.isdigit() == True:
+            digit = 'True'
+        if l.islower() == True:
+            lower = 'True'
+        if l.isupper() == True:
+            upper = 'True'
+    print(alnum)
+    print(alpha)
+    print(digit)
+    print(lower)
+    print(upper)
+
+#12) Text alignment:
+
+#Replace all ______ with rjust, ljust or center. 
+
+thickness = int(input()) #This must be an odd number
+c = 'H'
+
+#Top Cone
+for i in range(thickness):
+    print((c*i).rjust(thickness-1)+c+(c*i).ljust(thickness-1))
+
+#Top Pillars
+for i in range(thickness+1):
+    print((c*thickness).center(thickness*2)+(c*thickness).center(thickness*6))
+
+#Middle Belt
+for i in range((thickness+1)//2):
+    print((c*thickness*5).center(thickness*6))    
+
+#Bottom Pillars
+for i in range(thickness+1):
+    print((c*thickness).center(thickness*2)+(c*thickness).center(thickness*6))    
+
+#Bottom Cone
+for i in range(thickness):
+    print(((c*(thickness-i-1)).rjust(thickness)+c+(c*(thickness-i-1)).ljust(thickness)).rjust(thickness*6))
+
+#13) Find a string:
+
+def count_substring(string, sub_string):
+    lenstr = len(string)
+    lensub = len(sub_string)
+    l = int(0)
+    count = int(0)
+    for l in range(0, lenstr):
+        if(string[l] == sub_string[0]):
+            if(string[l:l+lensub] == sub_string):
+                count += 1
+                l += 1
+        else:
+            l += 1  
+    return (count)
+
+#14) Text Wrap: 
+
+def wrap(string, max_width):
+    lst = []
+    for i in range(0,(len(string)+1), max_width):
+        lst.append(string[i:max_width+i])
+    return ('\n'.join(lst))
+
+
+
+#15)  Capitalize Passport names
+def solve(s):
+    names = (s.split(' '))
+    new = list()
+    for l in names:
+        new.append(l.capitalize())
+    new = str(' '.join(new))
+    return (new)
+
+#16) Merge the Tools
+
+def merge_the_tools(string, k):
+    for x in range(0, len(string)+1, k):
+        out = string[x:k+x]
+        seen = ''
+        for y in out:
+            if y not in seen:
+                seen += y
+        print(seen)
+        out = string[k:]
