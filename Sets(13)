@@ -49,6 +49,27 @@ for l in range (0,N):
         unique.append(In)
 print(len(unique))
 
+#21) Sets .discard() .remove() .pop()
+
+n = int(input())
+s = set(map(int, input().split()))
+numcom = int(input())
+coman = []
+for k in range(0, numcom):
+    com = input().split(' ')
+    coman.append(com)
+    if com[0] == 'pop' and len(s) != 0:
+        s.pop()
+    elif com[0] == 'remove' and int(com[1]) in s:
+        s.remove(int(com[1]))
+    elif com[0] == 'discard':
+        s.discard(int(com[1]))
+sums = 0
+for l in s:
+    sums += int(l)
+print(sums)
+
+#22) Set .union()
 
 
 
