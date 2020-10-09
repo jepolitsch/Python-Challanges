@@ -39,6 +39,17 @@ for num in items:
         happy = happy
 print(happy)
 
-#20) Sets .app():
+#20) Sets .add():
+
+N = int(input())
+unique = []
+for l in range (0,N):
+    In = input()
+    if In not in unique:
+        unique.append(In)
+print(len(unique))
+
+
+
 
 
