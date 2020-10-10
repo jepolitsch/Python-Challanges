@@ -126,6 +126,66 @@ print(len(d))
 
 #26) Set Mutations:
 
+lenset = input()
+set1 = set(input().split(' '))
+numset = int(input())
+ret = list()
+for k in range(0, numset):
+    com = input().split(' ')
+    set2 = set(input().split(' '))
+    if com[0] == 'intersection_update':
+        set1.intersection_update(set2)
+    elif com[0] == 'update':
+        set1.update(set2)
+    elif com[0] == 'symmetric_difference_update':
+        set1.symmetric_difference_update(set2)
+    elif com[0] == 'difference_update':
+        set1.difference_update(set2)
+
+for l in set1:
+    ret.append(int(l))
+
+print(sum(ret))
+
+#27) The Captains Room:
+
+k = input()
+lst = input().split()
+set1 = set()
+set2 = set()
+for k in lst:
+    if k in set1:
+        set2.add(k)
+    else:
+        set1.add(k)
+ret = list(set1.difference(set2))
+print(ret[0])
+
+#28) Check Subset:
+
+cases = int(input())
+for x in range(0, cases):
+    len1 = int(input())
+    set1 = set(input().split())
+    len2 = int(input())
+    set2 = set(input().split())
+    if set1.issubset(set2):
+        print (True)
+    else:
+        print(False)
+
+#29) Check Strict Subset:
+
+set1 = set(input().split())
+runs = int(input())
+out = True
+for x in range(0, runs):
+    other = set(input().split())
+    if other == set1:
+        out = False
+    elif other.issubset(set1) != True:
+        out = False
+print(out)
 
 
 
