@@ -49,7 +49,7 @@ for l in range (0,N):
         unique.append(In)
 print(len(unique))
 
-#21) Sets .discard() .remove() .pop()
+#21) Sets .discard() .remove() .pop():
 
 n = int(input())
 s = set(map(int, input().split()))
@@ -69,7 +69,64 @@ for l in s:
     sums += int(l)
 print(sums)
 
-#22) Set .union()
+#22) Set .union():
+
+lena = input()
+a = input().split()
+lenb = input()
+b = input().split()
+c = list(a+b)
+d = set(c)
+
+for k in d:
+    if k in a and k in b:
+        c.remove(k)
+print(len(c))
+
+#23) Set .intersection():
+
+lena = input()
+a = input().split()
+lenb = input()
+b = input().split()
+c = list()
+d = set(a+b)
+
+for k in d:
+    if k in a and k in b:
+        c.append(k)
+print(len(c))
+
+#24) Set .difference():
+
+lena = input()
+a = input().split()
+lenb = input()
+b = input().split()
+c = list()
+
+for k in a:
+    if k not in b:
+        c.append(k)
+print(len(c))
+
+
+#25) Set .symetrical_difference() Operation:
+
+lena = input()
+a = input().split()
+lenb = input()
+b = input().split()
+c = set(a+b)
+d = set(a+b)
+for k in c:
+    if k in a and k in b:
+        d.remove(k)
+print(len(d))
+
+#26) Set Mutations:
+
+
 
 
 
