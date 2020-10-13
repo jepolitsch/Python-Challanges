@@ -1,4 +1,4 @@
-30) Polar Coordinates:
+#30) Polar Coordinates:
 
 import cmath
 
@@ -6,7 +6,7 @@ comple = complex(input())
 print(abs(complex(comple)))
 print(cmath.phase(complex(comple)))
 
-31) Find Angle MBC:
+#31) Find Angle MBC:
 
 import math
 
@@ -19,12 +19,12 @@ angle_C = math.degrees(math.acos(num/den))
 out = (str(int(round(angle_C)))+'°')
 print (out)
 
-32) Triangle Quest 2:
+#32) Triangle Quest 2:
 #Only allowed to be 2 lines, no strings allowed
 for x in range(1,int(input())+1):
     print(((10**x - 1)//9)*(10**x - 1)//9)
     
-33) Mod Divmod: 
+#33) Mod Divmod: 
 
 a = int(input())
 b = int(input())
@@ -35,7 +35,7 @@ print(line1)
 print(line2)
 print(line3)
 
-34) Power- Mod Power:
+#34) Power- Mod Power:
 
 a = int(input())
 b = int(input())
@@ -43,7 +43,7 @@ m = int(input())
 print(pow(a,b))
 print(pow(a,b,m))
 
-35) Integers come in all sizes:
+#35) Integers come in all sizes:
 
 a = int(input())
 b = int(input())
@@ -51,7 +51,7 @@ c = int(input())
 d = int(input())
 print((a**b)+(c**d))
 
-36) Triangle Quest:
+#36) Triangle Quest:
 #Only allowed to be 2 lines, no strings allowed, pure math only
 for i in range(1,int(input())):
     print((10**(i)//9)*i)
