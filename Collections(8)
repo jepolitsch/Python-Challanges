@@ -1,1 +1,31 @@
 
+43) collections.Counter():
+
+from collections import Counter
+
+num_sizes = int(input())
+sizes = Counter(list(input().split()))
+num_cus = int(input())
+price = []
+for i in range(0, num_cus):
+    inpu = input().split()
+    if sizes[(inpu[0])] > 0:
+        price.append(int(inpu[1]))
+        sizes.subtract(Counter([inpu[0]]))
+price = sum(price)
+print(price)
+
+44)
+
+45)
+
+46)
+
+47)
+
+48)
+
+49)
+
+50)
+
