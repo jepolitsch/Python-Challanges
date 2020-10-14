@@ -51,4 +51,47 @@ for h in sorte:
         else:
             print(k[0])
             
-40) 
+40) itertools.combinations_with_replacement():
+
+from itertools import combinations_with_replacement
+
+inpu = input().split()
+word = []
+leng = int(inpu[1])
+retu = list()
+for l in inpu[0]:
+    word.append(l)
+lst =  sorted(list(sorted(combinations_with_replacement(word, leng))))
+for p in lst:
+    p = sorted(p)
+    retu.append(p)
+for l in sorted(retu):
+    print(''.join(l))
+    
+41) Compress the string!:
+
+from itertools import groupby
+inpu = input()
+for i,j in groupby(inpu):
+    print('('+str(len(list(j)))+', '+str(i)+')', end=' ')
+    
+ 42) Iterables and Iterators:
+ 
+ from itertools import combinations
+
+leng = int(input())
+letter = list(input().split())
+ind = int(input())
+lst = []
+t = list(combinations(letter,ind))
+f = [i for i in t if ('a') in i]
+print(len(f)/len(t))
+
+
+ 
+
+
+
+
+
+
