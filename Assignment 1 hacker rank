@@ -90,3 +90,618 @@ if __name__ == '__main__':
         integer_list[x] = int(integer_list[x])
     tup = tuple(integer_list)    
     print hash(tup)
+    
+#7) String Split and Join:
+
+def swap_case(s):
+    y = ''
+    for letter in s:
+        x = ''
+        if letter.islower():
+            x = letter.upper()
+            y += x
+        else:
+            x = letter.lower()
+            y += x      
+    return(y)
+
+#OR
+
+def swap_case(s):
+	return (s.swapcase())
+
+#8) String split and join:
+
+def split_and_join(line):
+    l = str(line)
+    y = ''
+    for char in l:
+        if char == ' ':
+            y += '-'
+        else:
+            y += char
+    return(y)
+
+#9) Whats your name?:
+
+def print_full_name(a, b):
+    print "Hello "+str(a)+' '+str(b)+"! You just delved into python."
+
+
+#10) Mutations:
+
+def mutate_string(string, position, character):
+    mid = (string[:(position)]+str(character)+string[position+1:])
+    return (mid)
+
+#11) String Validators:
+
+if __name__ == '__main__':
+    s = list(input())
+    alnum = 'False'
+    alpha = 'False'
+    digit = 'False'
+    lower = 'False'
+    upper = 'False'
+    for l in s:
+        if l.isalnum() == True:
+            alnum = 'True'
+        if l.isalpha() == True:
+            alpha = 'True'
+        if l.isdigit() == True:
+            digit = 'True'
+        if l.islower() == True:
+            lower = 'True'
+        if l.isupper() == True:
+            upper = 'True'
+    print(alnum)
+    print(alpha)
+    print(digit)
+    print(lower)
+    print(upper)
+
+#12) Text alignment:
+
+#Replace all ______ with rjust, ljust or center. 
+
+thickness = int(input()) #This must be an odd number
+c = 'H'
+
+#Top Cone
+for i in range(thickness):
+    print((c*i).rjust(thickness-1)+c+(c*i).ljust(thickness-1))
+
+#Top Pillars
+for i in range(thickness+1):
+    print((c*thickness).center(thickness*2)+(c*thickness).center(thickness*6))
+
+#Middle Belt
+for i in range((thickness+1)//2):
+    print((c*thickness*5).center(thickness*6))    
+
+#Bottom Pillars
+for i in range(thickness+1):
+    print((c*thickness).center(thickness*2)+(c*thickness).center(thickness*6))    
+
+#Bottom Cone
+for i in range(thickness):
+    print(((c*(thickness-i-1)).rjust(thickness)+c+(c*(thickness-i-1)).ljust(thickness)).rjust(thickness*6))
+
+#13) Find a string:
+
+def count_substring(string, sub_string):
+    lenstr = len(string)
+    lensub = len(sub_string)
+    l = int(0)
+    count = int(0)
+    for l in range(0, lenstr):
+        if(string[l] == sub_string[0]):
+            if(string[l:l+lensub] == sub_string):
+                count += 1
+                l += 1
+        else:
+            l += 1  
+    return (count)
+
+#14) Text Wrap: 
+
+def wrap(string, max_width):
+    lst = []
+    for i in range(0,(len(string)+1), max_width):
+        lst.append(string[i:max_width+i])
+    return ('\n'.join(lst))
+
+#15)  Capitalize Passport names
+def solve(s):
+    names = (s.split(' '))
+    new = list()
+    for l in names:
+        new.append(l.capitalize())
+    new = str(' '.join(new))
+    return (new)
+
+#16) Merge the Tools
+
+def merge_the_tools(string, k):
+    for x in range(0, len(string)+1, k):
+        out = string[x:k+x]
+        seen = ''
+        for y in out:
+            if y not in seen:
+                seen += y
+        print(seen)
+        out = string[k:]
+#17)  Introduction to sets:
+
+def average(array):
+    myset = set(array)
+    myset = float(sum(myset)/len(myset))
+    return(myset)
+
+#18) Symetrical differences:
+
+sizea = input()
+a = list(input().split(' '))
+sizeb = input()
+b = list(input().split(' '))
+c = (a + b)
+d = list(c)
+e = list()
+for x in c:
+    if x in a and x in b:
+        d.remove(x)
+d = ((set(d)))
+for y in d:
+    e.append(int(y))
+for p in sorted(e):
+    print (int(p))
+
+#19) No Idea! 
+
+n = input()
+items = input().split(' ')
+like = set(input().split(' '))
+dislike = set(input().split(' '))
+happy = 0
+for num in items:
+    if num in like:
+        happy += 1
+    elif num in dislike:
+        happy += -1
+    else:
+        happy = happy
+print(happy)
+
+#20) Sets .add():
+
+N = int(input())
+unique = []
+for l in range (0,N):
+    In = input()
+    if In not in unique:
+        unique.append(In)
+print(len(unique))
+
+#21) Sets .discard() .remove() .pop():
+
+n = int(input())
+s = set(map(int, input().split()))
+numcom = int(input())
+coman = []
+for k in range(0, numcom):
+    com = input().split(' ')
+    coman.append(com)
+    if com[0] == 'pop' and len(s) != 0:
+        s.pop()
+    elif com[0] == 'remove' and int(com[1]) in s:
+        s.remove(int(com[1]))
+    elif com[0] == 'discard':
+        s.discard(int(com[1]))
+sums = 0
+for l in s:
+    sums += int(l)
+print(sums)
+
+#22) Set .union():
+
+lena = input()
+a = input().split()
+lenb = input()
+b = input().split()
+c = list(a+b)
+d = set(c)
+
+for k in d:
+    if k in a and k in b:
+        c.remove(k)
+print(len(c))
+
+#23) Set .intersection():
+
+lena = input()
+a = input().split()
+lenb = input()
+b = input().split()
+c = list()
+d = set(a+b)
+
+for k in d:
+    if k in a and k in b:
+        c.append(k)
+print(len(c))
+
+#24) Set .difference():
+
+lena = input()
+a = input().split()
+lenb = input()
+b = input().split()
+c = list()
+
+for k in a:
+    if k not in b:
+        c.append(k)
+print(len(c))
+
+
+#25) Set .symetrical_difference() Operation:
+
+lena = input()
+a = input().split()
+lenb = input()
+b = input().split()
+c = set(a+b)
+d = set(a+b)
+for k in c:
+    if k in a and k in b:
+        d.remove(k)
+print(len(d))
+
+#26) Set Mutations:
+
+lenset = input()
+set1 = set(input().split(' '))
+numset = int(input())
+ret = list()
+for k in range(0, numset):
+    com = input().split(' ')
+    set2 = set(input().split(' '))
+    if com[0] == 'intersection_update':
+        set1.intersection_update(set2)
+    elif com[0] == 'update':
+        set1.update(set2)
+    elif com[0] == 'symmetric_difference_update':
+        set1.symmetric_difference_update(set2)
+    elif com[0] == 'difference_update':
+        set1.difference_update(set2)
+
+for l in set1:
+    ret.append(int(l))
+
+print(sum(ret))
+
+#27) The Captains Room:
+
+k = input()
+lst = input().split()
+set1 = set()
+set2 = set()
+for k in lst:
+    if k in set1:
+        set2.add(k)
+    else:
+        set1.add(k)
+ret = list(set1.difference(set2))
+print(ret[0])
+
+#28) Check Subset:
+
+cases = int(input())
+for x in range(0, cases):
+    len1 = int(input())
+    set1 = set(input().split())
+    len2 = int(input())
+    set2 = set(input().split())
+    if set1.issubset(set2):
+        print (True)
+    else:
+        print(False)
+
+#29) Check Strict Subset:
+
+set1 = set(input().split())
+runs = int(input())
+out = True
+for x in range(0, runs):
+    other = set(input().split())
+    if other == set1:
+        out = False
+    elif other.issubset(set1) != True:
+        out = False
+print(out)
+
+#30) Polar Coordinates:
+
+import cmath
+
+comple = complex(input())
+print(abs(complex(comple)))
+print(cmath.phase(complex(comple)))
+
+#31) Find Angle MBC:
+
+import math
+
+AB = int(input())
+BC = int(input())
+hypotenuse = math.pow(((AB*AB) + (BC*BC)), 0.5)
+num = (BC)**2 + (hypotenuse)**2 - (AB)**2
+den = (2*(BC*hypotenuse))
+angle_C = math.degrees(math.acos(num/den))
+out = (str(int(round(angle_C)))+'°')
+print (out)
+
+#32) Triangle Quest 2:
+#Only allowed to be 2 lines, no strings allowed
+for x in range(1,int(input())+1):
+    print(((10**x - 1)//9)*(10**x - 1)//9)
+    
+#33) Mod Divmod: 
+
+a = int(input())
+b = int(input())
+line1 = a//b
+line2 = a%b
+line3 = (line1, line2)
+print(line1)
+print(line2)
+print(line3)
+
+#34) Power- Mod Power:
+
+a = int(input())
+b = int(input())
+m = int(input())
+print(pow(a,b))
+print(pow(a,b,m))
+
+#35) Integers come in all sizes:
+
+a = int(input())
+b = int(input())
+c = int(input())
+d = int(input())
+print((a**b)+(c**d))
+
+#36) Triangle Quest:
+#Only allowed to be 2 lines, no strings allowed, pure math only
+for i in range(1,int(input())):
+    print((10**(i)//9)*i)
+    
+37) itertools.product():
+
+from itertools import product
+
+a = (input().split())
+b = (input().split())
+c = []
+B = []
+A = []
+for l in a:
+    A.append(int(l))
+c.append(A)
+for k in b:
+    B.append(int(k))
+c.append(B)
+for x in (product(*c)):
+    print(x, end=' ')
+    
+38) itertools.permutations():
+
+from itertools import permutations
+
+inpu = input().split()
+word = []
+leng = int(inpu[1])
+for l in inpu[0]:
+    word.append(l)
+lst =  sorted(list((permutations(word , leng))))
+for l in lst:
+    print(''.join(l))
+    
+39) itertools.combinations():
+
+from itertools import combinations
+
+inpu = input().split(' ')
+word = []
+leng = int(inpu[1])
+lst = []
+for l in inpu[0]:
+    word.append(l)
+for k in range(1, leng+1):
+    lst.append(sorted(combinations(sorted(word), k)))
+sorte = []
+for l in range(0, len(lst)):
+    sorte.append(sorted(lst[l]))
+for h in sorte:
+    for k in h:
+        if len(k) >= 2:
+            print(''.join(k))
+        else:
+            print(k[0])
+            
+40) itertools.combinations_with_replacement():
+
+from itertools import combinations_with_replacement
+
+inpu = input().split()
+word = []
+leng = int(inpu[1])
+retu = list()
+for l in inpu[0]:
+    word.append(l)
+lst =  sorted(list(sorted(combinations_with_replacement(word, leng))))
+for p in lst:
+    p = sorted(p)
+    retu.append(p)
+for l in sorted(retu):
+    print(''.join(l))
+    
+41) Compress the string!:
+
+from itertools import groupby
+inpu = input()
+for i,j in groupby(inpu):
+    print('('+str(len(list(j)))+', '+str(i)+')', end=' ')
+    
+ 42) Iterables and Iterators:
+ 
+ from itertools import combinations
+
+leng = int(input())
+letter = list(input().split())
+ind = int(input())
+lst = []
+t = list(combinations(letter,ind))
+f = [i for i in t if ('a') in i]
+print(len(f)/len(t))
+
+43) collections.Counter():
+
+from collections import Counter
+
+num_sizes = int(input())
+sizes = Counter(list(input().split()))
+num_cus = int(input())
+price = []
+for i in range(0, num_cus):
+    inpu = input().split()
+    if sizes[(inpu[0])] > 0:
+        price.append(int(inpu[1]))
+        sizes.subtract(Counter([inpu[0]]))
+price = sum(price)
+print(price)
+
+44) DefaultDict Tutorial:
+
+from collections import defaultdict
+
+diction = defaultdict(list)
+nm = input().split()
+n = int(nm[0])
+m = int(nm[1])
+for i in range(1,n+1):
+    diction[input()].append(str(i))
+for i in range(0, m):
+    print (' '.join(diction[input()]) or -1)
+
+45) collections.namedtuple(): 
+
+from collections import namedtuple
+numstu = int(input())
+cat = input().split()
+count = 0
+for i in range(0, numstu):
+    entryn = namedtuple('entryn', cat)
+    fields = input().split()
+    field1 = fields[0]
+    field2 = fields[1]
+    field3 = fields[2]
+    field4 = fields[3]
+    student = entryn(field1,field2,field3,field4)
+    count += int(student.MARKS)
+print(count/numstu)
+
+46) Collections.OrderedDict():
+
+from collections import OrderedDict
+
+numitem = int(input())
+dic = OrderedDict()
+for i in range(numitem):
+    item = input().split(' ')
+    name = ' '.join(item[:-1])
+    price = int(item[-1])
+    if dic.get(name):
+        dic[name] += price
+    else:
+        dic[name] = price
+
+for i,v in dic.items():
+    print(i,v)
+
+47) Word Order: 
+
+from collections import Counter
+numlin = int(input())
+values = []
+for x in range(0, numlin):
+    a = str(input().split())
+    values.append(a)
+count = Counter(values)
+print(len(set(values)))
+l = list(count.values())
+for p in l:
+    print(p, end=' ')
+
+48) Collections.deque() :
+
+from collections import deque
+runs = int(input())
+d = deque()
+for l in range(0, runs):
+        comm = input().split()
+        if(comm[0] == 'append'):
+            d.append(comm[1])
+        elif(comm[0] == 'appendleft'):
+            d.appendleft(comm[1])
+        elif(comm[0] == 'pop'):
+            d.pop()
+        elif(comm[0] == 'popleft'):
+            d.popleft()
+print(' '.join(d))
+
+49) Piling Up!
+
+num_out = int(input())
+for i in range(num_out):
+  n = int(input())
+  cube = list()
+  inp = input().split(' ')
+  for k in inp:
+    p = int(k)
+    cube.append(p)
+  a = -1
+  b = -1
+  for j in range(n-1):
+    if (cube[j] < cube[j+1]):
+      a = j
+      break
+  for j in range(n-1, 0, -1):
+    if (cube[j] < cube[j-1]):
+      b = j
+      break
+  if (a == -1):
+    a = n-2
+  if (b == -1):
+    b = 1
+  if (b - a) < 2:
+    print('Yes')
+  else:
+    print('No')
+
+
+50) Company Logo
+
+if __name__ == '__main__':
+    s = input()
+    lst = []
+    for k in range(0, len(s)):
+        lst.append(s[k])
+    count = (Counter(lst).items())
+    d = collections.OrderedDict(count)
+    for key, value in sorted(count, key=lambda c: (-c[1], c[0]))[:3]:
+        print(key, value)
+        
+      
