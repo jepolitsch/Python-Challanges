@@ -63,11 +63,76 @@ for i in range(numitem):
 for i,v in dic.items():
     print(i,v)
 
-47)
+47) Word Order: 
 
-48)
+from collections import Counter
+numlin = int(input())
+values = []
+for x in range(0, numlin):
+    a = str(input().split())
+    values.append(a)
+count = Counter(values)
+print(len(set(values)))
+l = list(count.values())
+for p in l:
+    print(p, end=' ')
 
-49)
+48) Collections.deque() :
 
-50)
+from collections import deque
+runs = int(input())
+d = deque()
+for l in range(0, runs):
+        comm = input().split()
+        if(comm[0] == 'append'):
+            d.append(comm[1])
+        elif(comm[0] == 'appendleft'):
+            d.appendleft(comm[1])
+        elif(comm[0] == 'pop'):
+            d.pop()
+        elif(comm[0] == 'popleft'):
+            d.popleft()
+print(' '.join(d))
+
+49) Piling Up!
+
+num_out = int(input())
+for i in range(num_out):
+  n = int(input())
+  cube = list()
+  inp = input().split(' ')
+  for k in inp:
+    p = int(k)
+    cube.append(p)
+  a = -1
+  b = -1
+  for j in range(n-1):
+    if (cube[j] < cube[j+1]):
+      a = j
+      break
+  for j in range(n-1, 0, -1):
+    if (cube[j] < cube[j-1]):
+      b = j
+      break
+  if (a == -1):
+    a = n-2
+  if (b == -1):
+    b = 1
+  if (b - a) < 2:
+    print('Yes')
+  else:
+    print('No')
+
+
+50) Company Logo
+
+if __name__ == '__main__':
+    s = input()
+    lst = []
+    for k in range(0, len(s)):
+        lst.append(s[k])
+    count = (Counter(lst).items())
+    d = collections.OrderedDict(count)
+    for key, value in sorted(count, key=lambda c: (-c[1], c[0]))[:3]:
+        print(key, value)
 
