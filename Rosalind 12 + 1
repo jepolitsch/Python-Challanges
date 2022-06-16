@@ -1,0 +1,268 @@
+1) DNA
+
+def DNA(string):
+    string = str(string)
+    return((string.count('A')),(string.count('C')),(string.count('G')),(string.count('T')))
+
+dna = open('rosalind_dna.txt', 'r')
+obj = dna.readlines()
+print(DNA(obj))
+
+2) RNA
+
+def RNA(string):
+    rna = ''
+    for x in str(string):
+        if x == 'G' or x == 'C' or x == 'A':
+            rna += x
+        elif x == 'T':
+            rna += 'U'
+    return(rna)
+
+dna = open('rosalind_rna.txt', 'r')
+obj = dna.readlines()
+print(RNA(obj))
+
+3) REVC
+
+def revc(string):
+    comp = ''
+    string = reversed(str(string))
+    for x in string:
+        if x == 'G':
+            comp += 'C'
+        elif x == 'C':
+            comp += 'G'
+        elif x == 'T':
+            comp += 'A'
+        elif x == 'A':
+            comp += 'T'
+    return comp
+
+dna = open('rosalind_revc.txt', 'r')
+obj = dna.readlines()
+print(revc(obj))
+
+4) GC
+
+def gc(id, string):
+    id = id
+    cg = int(string.count('G')+string.count(('C')))
+    return (id, cg/len(string)*100)
+
+def fasta(input, output):
+    dna = open(input, 'r')
+    obj = dna.read().replace('\n','').split('>')
+    fasta = open(output, 'w')
+    ret = list()
+    for x in range(1, len(obj)):
+        string = (str(obj[x][0:13])+':'+obj[x][13:])
+        fasta.write(str(string.split(':')))
+        fasta.write('\n')
+        ret.append(string.split(':'))
+    return ret
+a = list()
+b = list()
+input_formated = fasta('rosalind_gc.txt', 'results.txt')
+for x in range(len(input_formated)):
+    p = gc(input_formated[x][0], input_formated[x][1])
+    a.append(p[0])
+    b.append(p[1])
+maxb = b.index(max(b))
+print(a[maxb], (max(b)))
+
+5) SUBS
+
+def subs(string, sub):
+    ret_list = []
+    for x in range(len(string)):
+        if string[x:].startswith(sub):
+            ret_list.append(x+1)
+    return ret_list
+    
+data = open('rosalind_subs.txt', 'r')
+line = data.readlines()
+string = str(line[0].strip())
+sub = str(line[1].strip())
+output = (subs(string, sub))
+print(*output)
+
+6) CONS
+
+def cons(list):
+    consensus_int = []
+    consensus_str = ''
+    count = [0]*len(list[0])
+    for x in range(0,len(list[0])):
+        countACGT = [0,0,0,0]
+        for y in range(len(list)):
+            if list[y][x] == 'A':
+                countACGT[0] += 1
+            elif list[y][x] == 'C':
+                countACGT[1] += 1
+            elif list[y][x] == 'G':
+                countACGT[2] += 1
+            elif list[y][x] == 'T':
+                countACGT[3] += 1
+            count[x] = countACGT
+        consensus_int.append((countACGT.index(max(countACGT))))
+
+    for x in consensus_int:
+        if x == 0:
+            consensus_str += 'A'
+        elif x == 1:
+            consensus_str += 'C'
+        elif x == 2:
+            consensus_str += 'G'
+        elif x == 3:
+            consensus_str += 'T'
+    A = 'A: '
+    C = 'C: '
+    G = 'G: '
+    T = 'T: '
+    for p in range(len(count)):
+        A += str(count[p][0]) + ' '
+        C += str(count[p][1]) + ' '
+        G += str(count[p][2]) + ' '
+        T += str(count[p][3]) + ' '
+    ACGT = '\n' + A.strip() + '\n' + C.strip() + '\n' + G.strip() + '\n' + T.strip()
+    results = open('results.txt', 'w')
+    results.writelines(consensus_str)
+    results.writelines(ACGT)
+
+
+input_formated = fasta('rosalind_cons.txt', 'results.txt')
+dna_just = []
+for x in range(len(input_formated)):
+    dna_just.insert(x, input_formated[x][1])
+(cons(dna_just))
+
+7) LCSM
+
+def lcsm(list):
+    shared_motif = ''
+    shortest_index = 0
+    for x in list:
+        if len(x) > shortest_index:
+            shortest_index = list.index(x)
+    possible_seq = []
+    shortest_value = list[shortest_index]
+    for x in range(1, len(shortest_value)):
+        sub = [shortest_value[i: j] for i in range(len(shortest_value)) for j in range(i + 1, len(shortest_value) + 1) if len(shortest_value[i:j]) == x]
+        possible_seq.append(sub)
+    for p in possible_seq:
+        for q in p:
+            counter = 0
+            for h in range(len(dna_just)):
+                if q in dna_just[h]:
+                    counter += 1
+                else:
+                    break
+            if counter >= len(dna_just) and len(q) > len(shared_motif):
+                shared_motif = q
+    return(shared_motif)
+
+input_formated = fasta('rosalind_lcsm.txt', 'results.txt')
+dna_just = []
+for x in range(len(input_formated)):
+    dna_just.insert(x, input_formated[x][1])
+print(lcsm(dna_just))
+
+8) REVP
+
+def revp(string):
+    dna = str(string)
+    possible_seq = []
+    for x in range(4, 13, 2):
+        for i in range(0, len(dna_just)+12):
+            for j in range(1, len(dna_just)):
+                if len(dna[i:j]) == x and dna[i:j] == revc(dna[i:j]):
+                    k = (i+2), (len(dna[i:j]))
+                    possible_seq.append(k)
+    so = sorted(possible_seq)
+    for x in range(len(possible_seq)):
+        print(so[x][0],so[x][1], sep='\t')
+
+output = open('results.txt', 'r')
+input = open('rosalind_revp.txt', 'r')
+input_formated = fasta('rosalind_revp.txt', 'results.txt')
+result = output.readlines()
+first = result[0].split()
+dna_just = first[1]
+(revp(dna_just))
+
+
+9) SPLC
+
+def splc(coding, exons):
+    code = str(coding)
+    exons = list(exons)
+    for k in exons:
+            code = code.replace(k, '')
+    rna_coding = RNA(code)
+    prot_coding = prot(rna_coding)
+    return prot_coding
+
+input_formated = fasta('rosalind_splc.txt', 'results.txt')
+dna_just = []
+coding = input_formated[0][1]
+for x in range(1, len(input_formated)):
+    dna_just.insert(x, input_formated[x][1])
+
+print(splc(coding, dna_just))
+
+10) LEXF
+
+def lexf(string, n):
+    result = open('results.txt', 'w')
+    p = list(itertools.product(string, repeat=n))
+    for x in p:
+        result.writelines(''.join(x))
+        result.writelines('\n')
+        
+11) FIB
+
+def fib(n, k):
+    p, c = 1,1
+    for x in range(n-1):
+        c, p = p, p+(c*k)
+    return(c)
+    
+data = open('rosalind_fib.txt', 'r')
+line = data.readlines()
+first = line[0].split()
+n, k = int(first[0]), int(first[1])
+print(fib(n, k))
+    
+12) LGIS
+
+def lgis(a):
+    increasing = []
+    decreasing = []
+    for (k,v) in enumerate(a):
+        inc_sub = list(max([increasing[i] for (i, n) in enumerate(a[:k]) if n < v] or [[]], key=len) + [v])
+        increasing.append(inc_sub)
+    for (k,v) in enumerate(a):
+        dec_sub = list(max([decreasing[i] for (i, n) in enumerate(a[:k]) if n > v] or [[]], key=len) + [v])
+        decreasing.append(dec_sub)
+    print((inc_sub))
+    print((dec_sub))
+
+inp = open('rosalind_lgis.txt', 'r')
+line = inp.readlines()
+string = list(map(int, line[1].strip().split()))
+n = (lgis(string))
+
+**13) HAMM
+
+def hamm(one, two):
+    counter = 0
+    for x in range(len(one)):
+        if one[x] != two[x]:
+            counter += 1
+    return counter
+data = open('rosalind_hamm.txt', 'r')
+line = data.readlines()
+one = line[0]
+two = line[1]
+print(hamm(one, two))

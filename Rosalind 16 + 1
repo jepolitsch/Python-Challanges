@@ -1,0 +1,442 @@
+1) PROT
+
+def prot(rna):
+    RNA_PRO = {"UUU": "F", "UUC": "F", "UUA": "L", "UUG": "L",
+               "UCU": "S", "UCC": "S", "UCA": "S", "UCG": "S",
+               "UAU": "Y", "UAC": "Y", "UAA": "STOP", "UAG": "STOP",
+               "UGU": "C", "UGC": "C", "UGA": "STOP", "UGG": "W",
+               "CUU": "L", "CUC": "L", "CUA": "L", "CUG": "L",
+               "CCU": "P", "CCC": "P", "CCA": "P", "CCG": "P",
+               "CAU": "H", "CAC": "H", "CAA": "Q", "CAG": "Q",
+               "CGU": "R", "CGC": "R", "CGA": "R", "CGG": "R",
+               "AUU": "I", "AUC": "I", "AUA": "I", "AUG": "M",
+               "ACU": "T", "ACC": "T", "ACA": "T", "ACG": "T",
+               "AAU": "N", "AAC": "N", "AAA": "K", "AAG": "K",
+               "AGU": "S", "AGC": "S", "AGA": "R", "AGG": "R",
+               "GUU": "V", "GUC": "V", "GUA": "V", "GUG": "V",
+               "GCU": "A", "GCC": "A", "GCA": "A", "GCG": "A",
+               "GAU": "D", "GAC": "D", "GAA": "E", "GAG": "E",
+               "GGU": "G", "GGC": "G", "GGA": "G", "GGG": "G" }
+    rna_lst = (re.findall('...', rna))
+    start = int(rna_lst.index('AUG'))
+    stop = False
+    protein = ''
+    if start != -1:
+        for p in range((start), len(rna_lst)):
+                if p == 'UAG' or p == 'UAA' or p == 'UGA':
+                    return protein.replace('STOP', '')
+                else:
+                    protein += (RNA_PRO.get(rna_lst[p]))
+
+        return protein.replace('STOP', '')
+    else:
+        return protein.replace('STOP', '')
+        
+rna = open('rosalind_prot.txt', 'r')
+line = rna.readlines()
+print(translate(line[0]))
+
+2) SPLC
+
+def splc(coding, exons):
+    code = str(coding)
+    exons = list(exons)
+    for k in exons:
+            code = code.replace(k, '')
+    rna_coding = RNA(code)
+    prot_coding = prot(rna_coding)
+    return prot_coding
+
+input_formated = fasta('rosalind_splc.txt', 'results.txt')
+dna_just = []
+coding = input_formated[0][1]
+for x in range(1, len(input_formated)):
+    dna_just.insert(x, input_formated[x][1])
+print(splc(coding, dna_just))
+
+3) TRAN
+
+def tran(first, second):
+    transit = 0
+    transv = 0
+    for x in range(len(first)):
+        a, b = first[x], second[x]
+        if a != b:
+            if (a == 'G' and b == 'A') or (a == 'A' and b == 'G') or (a == 'C' and b == 'T') or (a == 'T' and b == 'C'):#Transition
+                transit += 1
+            else:
+                transv += 1
+    print(transit/transv)
+
+input_formated = fasta('rosalind_tran.txt', 'results.txt')
+tran(input_formated[0][1], input_formated[1][1])
+
+4) HAMM
+
+def hamm(one, two):
+    counter = 0
+    for x in range(len(one)):
+        if one[x] != two[x]:
+            counter += 1
+    return counter
+data = open('rosalind_hamm.txt', 'r')
+line = data.readlines()
+one = line[0]
+two = line[1]
+print(hamm(one, two))
+
+5) TREE
+
+def tree():
+    input = open('rosalind_tree.txt', 'r').readlines()
+    n = int(input[0])
+    k = len(input[1:])
+    print(n-(k+1))
+tree()
+
+6) PDST
+
+def p_dist(a,b):
+    diff = 0
+    for x in range(len(a)):
+        if a[x] != b[x]:
+            diff += 1
+    return "%0.5f" % (diff/len(a))
+
+def pdst(dna):
+    for x in range(len(dna)):
+        for y in range(len(dna)):
+            dist = p_dist(dna[x], dna[y])
+            print(dist, end=' ')
+        print('')
+
+input_formated = fasta('rosalind_pdst.txt', 'results.txt')
+dna_just = []
+for x in range(0, len(input_formated)):
+    dna_just.insert(x, input_formated[x][1])
+pdst(dna_just)
+
+7) SSEQ
+
+def sseq(dna, motif):
+    ind = []
+    counter = 0
+    for k in range(len(motif[0])):
+        target = motif[0][k]
+        ind.append(dna[0].index(target, counter)+1)
+        counter = ind[-1]
+    print(*ind)
+
+input_formated = fasta('rosalind_sseq.txt', 'results.txt')
+dna_just = [input_formated[0][1]]
+motif = [input_formated[1][1]]
+
+sseq(dna_just, motif)
+
+8) LCSQ
+
+def lcsq(s,t):
+    lengths = [[0 for j in range(len(t)+1)] for i in range(len(s)+1)]
+    for i, x in enumerate(s):
+        for j, y in enumerate(t):
+            if x == y:
+                lengths[i+1][j+1] = lengths[i][j]+1
+            else:
+                lengths[i+1][j+1] = max(lengths[i+1][j] , lengths[i][j+1])
+    motif = ''
+    p = len(s)
+    k = len(t)
+    while p * k != 0:
+        if lengths[p][k] == lengths[p-1][k]:
+            p -=1
+        elif lengths[p][k] == lengths[p][k-1]:
+            k -=1
+        else:
+            motif += s[p- 1]
+            p -= 1
+            k -= 1
+    print(motif)
+
+
+input_formated = fasta('rosalind_lcsq.txt', 'results.txt')
+s = [input_formated[0][1]]
+t = [input_formated[1][1]]
+lcsq(s[0], t[0])
+
+9) ORF
+
+DNA_CODON_TABLE = {
+    'TTT': 'F',     'CTT': 'L',     'ATT': 'I',     'GTT': 'V',
+    'TTC': 'F',     'CTC': 'L',     'ATC': 'I',     'GTC': 'V',
+    'TTA': 'L',     'CTA': 'L',     'ATA': 'I',     'GTA': 'V',
+    'TTG': 'L',     'CTG': 'L',     'ATG': 'M',     'GTG': 'V',
+    'TCT': 'S',     'CCT': 'P',     'ACT': 'T',     'GCT': 'A',
+    'TCC': 'S',     'CCC': 'P',     'ACC': 'T',     'GCC': 'A',
+    'TCA': 'S',     'CCA': 'P',     'ACA': 'T',     'GCA': 'A',
+    'TCG': 'S',     'CCG': 'P',     'ACG': 'T',     'GCG': 'A',
+    'TAT': 'Y',     'CAT': 'H',     'AAT': 'N',     'GAT': 'D',
+    'TAC': 'Y',     'CAC': 'H',     'AAC': 'N',     'GAC': 'D',
+    'TAA': 'Stop',  'CAA': 'Q',     'AAA': 'K',     'GAA': 'E',
+    'TAG': 'Stop',  'CAG': 'Q',     'AAG': 'K',     'GAG': 'E',
+    'TGT': 'C',     'CGT': 'R',     'AGT': 'S',     'GGT': 'G',
+    'TGC': 'C',     'CGC': 'R',     'AGC': 'S',     'GGC': 'G',
+    'TGA': 'Stop',  'CGA': 'R',     'AGA': 'R',     'GGA': 'G',
+    'TGG': 'W',     'CGG': 'R',     'AGG': 'R',     'GGG': 'G'
+}
+
+
+def translate_codon(codon):
+    protein = None
+    if len(codon) == 3:
+        protein = DNA_CODON_TABLE[codon]
+    return protein
+
+
+def orf(dna):
+    possible = []
+    start_codons = []
+    for x in range(len(dna)):
+        peptide = translate_codon(dna[x:x + 3])
+        if peptide == 'M':
+            start_codons.append(x)
+    for y in start_codons:
+        stop = False
+        protein = ''
+        for j in range(y, len(dna), 3):
+            peptide = translate_codon(dna[j:j + 3])
+            if peptide == 'Stop':
+                stop = True
+                break
+            protein += peptide
+        if stop == True:
+            possible.append(protein)
+    return possible
+
+input_formated = fasta('rosalind_orf.txt', 'results.txt')
+dna = [input_formated[0][1]]
+proteins = set((orf(revc(dna[0]))) + (orf(dna[0])))
+print('\n'.join(list(proteins)))
+
+
+10) PERM
+
+def perm(n):
+    num = '12345678'
+    k = num[:n]
+    p = list(itertools.permutations(k, n))
+    print(len(p))
+    for x in p:
+        print(' '.join(x))
+        
+11) GRPH
+
+def grph(keys, items):
+    for p in range(len(items)):
+        ends_with = items[p][-3:]
+        for k in items:
+            if k.startswith(ends_with) and (keys[p] != ext[items.index(k)]):
+                print(keys[p], ext[items.index(k)])
+
+input_formated = fasta('rosalind_grph.txt', 'results.txt')
+dna_just = []
+ext = []
+for x in range(len(input_formated)):
+    dna_just.insert(x, input_formated[x][1])
+    ext.insert(x, input_formated[x][0])
+grph(ext, dna_just)
+
+12) INOD
+
+def inod(n):
+    return(n-2)
+    
+13) EDIT
+
+def edit(s,t):
+    if len(s) == 0:
+        return len(t)
+    if len(t) == 0:
+        return len(s)
+    if s[len(s) - 1] == t[len(t) - 1]:
+        return edit(s[:-1], t[:-1])
+    else:
+        return 1 + min(edit(s, t[:-1]), edit(s[:-1], t), edit(s[:-1], t[:-1]))
+
+input_formated = fasta('rosalind_edit.txt', 'results.txt')
+s = [input_formated[0][1]]
+t = [input_formated[1][1]]
+print(edit(s[0], t[0]))
+
+14) EDTA
+
+def match(a,b):
+    if a == b:
+        return(0)
+    return(1)
+
+
+def edta(s,t):
+    #Reusing edit distance code for first part
+    dist = edit(s, t, len(s), len(t))
+    print(dist)
+    s_prim = ''
+    t_prim = ''
+    i = len(s)
+    j = len(t)
+    #Creating my matrix of i * j
+    matrix = [[0 for j in range(len(t)+1)] for i in range(len(s)+1)]
+    
+    #taking min value of matrix, one of the possible solutions
+    for i in range(1,len(s) + 1):
+        matrix[i][0] = i
+    for i in range(1,len(t)+1):
+        matrix[0][i] = i
+    for i in range(1,len(s)+1):
+        for j in range(1, len(t) + 1):
+            if s[i - 1] == t[j - 1]:
+                res = 0
+            else:
+                res = 1
+            matrix[i][j] = min(matrix[i - 1][j] + 1, matrix[i][j - 1] + 1, matrix[i - 1][j - 1] + res)
+
+    #Building the strings given the matrix values
+    while i * j != 0:
+        if matrix[i][j] == matrix[i-1][j-1] + match(s[i - 1], t[j - 1]):
+            s_prim = s[i - 1] + s_prim
+            t_prim = t[j - 1] + t_prim
+            j -= 1
+            i -= 1
+        elif i > 0 and matrix[i][j] == matrix[i - 1][j] + 1:
+            s_prim = s[i - 1] + s_prim
+            t_prim = '-' + t_prim
+            i -= 1
+        else:
+            t_prim = t[j - 1] + t_prim
+            s_prim = '-' + s_prim
+            j -= 1
+    print(s_prim)
+    print(t_prim)
+
+
+input_formated = fasta('rosalind_edta.txt', 'results.txt')
+s = [input_formated[0][1]]
+t = [input_formated[1][1]]
+(edta(s[0], t[0]))
+
+15) GLOB
+
+blosum62 = {
+    ('W', 'F'): 1, ('L', 'R'): -2, ('S', 'P'): -1, ('V', 'T'): 0,
+    ('Q', 'Q'): 5, ('N', 'A'): -2, ('Z', 'Y'): -2, ('W', 'R'): -3,
+    ('Q', 'A'): -1, ('S', 'D'): 0, ('H', 'H'): 8, ('S', 'H'): -1,
+    ('H', 'D'): -1, ('L', 'N'): -3, ('W', 'A'): -3, ('Y', 'M'): -1,
+    ('G', 'R'): -2, ('Y', 'I'): -1, ('Y', 'E'): -2, ('B', 'Y'): -3,
+    ('Y', 'A'): -2, ('V', 'D'): -3, ('B', 'S'): 0, ('Y', 'Y'): 7,
+    ('G', 'N'): 0, ('E', 'C'): -4, ('Y', 'Q'): -1, ('Z', 'Z'): 4,
+    ('V', 'A'): 0, ('C', 'C'): 9, ('M', 'R'): -1, ('V', 'E'): -2,
+    ('T', 'N'): 0, ('P', 'P'): 7, ('V', 'I'): 3, ('V', 'S'): -2,
+    ('Z', 'P'): -1, ('V', 'M'): 1, ('T', 'F'): -2, ('V', 'Q'): -2,
+    ('K', 'K'): 5, ('P', 'D'): -1, ('I', 'H'): -3, ('I', 'D'): -3,
+    ('T', 'R'): -1, ('P', 'L'): -3, ('K', 'G'): -2, ('M', 'N'): -2,
+    ('P', 'H'): -2, ('F', 'Q'): -3, ('Z', 'G'): -2, ('X', 'L'): -1,
+    ('T', 'M'): -1, ('Z', 'C'): -3, ('X', 'H'): -1, ('D', 'R'): -2,
+    ('B', 'W'): -4, ('X', 'D'): -1, ('Z', 'K'): 1, ('F', 'A'): -2,
+    ('Z', 'W'): -3, ('F', 'E'): -3, ('D', 'N'): 1, ('B', 'K'): 0,
+    ('X', 'X'): -1, ('F', 'I'): 0, ('B', 'G'): -1, ('X', 'T'): 0,
+    ('F', 'M'): 0, ('B', 'C'): -3, ('Z', 'I'): -3, ('Z', 'V'): -2,
+    ('S', 'S'): 4, ('L', 'Q'): -2, ('W', 'E'): -3, ('Q', 'R'): 1,
+    ('N', 'N'): 6, ('W', 'M'): -1, ('Q', 'C'): -3, ('W', 'I'): -3,
+    ('S', 'C'): -1, ('L', 'A'): -1, ('S', 'G'): 0, ('L', 'E'): -3,
+    ('W', 'Q'): -2, ('H', 'G'): -2, ('S', 'K'): 0, ('Q', 'N'): 0,
+    ('N', 'R'): 0, ('H', 'C'): -3, ('Y', 'N'): -2, ('G', 'Q'): -2,
+    ('Y', 'F'): 3, ('C', 'A'): 0, ('V', 'L'): 1, ('G', 'E'): -2,
+    ('G', 'A'): 0, ('K', 'R'): 2, ('E', 'D'): 2, ('Y', 'R'): -2,
+    ('M', 'Q'): 0, ('T', 'I'): -1, ('C', 'D'): -3, ('V', 'F'): -1,
+    ('T', 'A'): 0, ('T', 'P'): -1, ('B', 'P'): -2, ('T', 'E'): -1,
+    ('V', 'N'): -3, ('P', 'G'): -2, ('M', 'A'): -1, ('K', 'H'): -1,
+    ('V', 'R'): -3, ('P', 'C'): -3, ('M', 'E'): -2, ('K', 'L'): -2,
+    ('V', 'V'): 4, ('M', 'I'): 1, ('T', 'Q'): -1, ('I', 'G'): -4,
+    ('P', 'K'): -1, ('M', 'M'): 5, ('K', 'D'): -1, ('I', 'C'): -1,
+    ('Z', 'D'): 1, ('F', 'R'): -3, ('X', 'K'): -1, ('Q', 'D'): 0,
+    ('X', 'G'): -1, ('Z', 'L'): -3, ('X', 'C'): -2, ('Z', 'H'): 0,
+    ('B', 'L'): -4, ('B', 'H'): 0, ('F', 'F'): 6, ('X', 'W'): -2,
+    ('B', 'D'): 4, ('D', 'A'): -2, ('S', 'L'): -2, ('X', 'S'): 0,
+    ('F', 'N'): -3, ('S', 'R'): -1, ('W', 'D'): -4, ('V', 'Y'): -1,
+    ('W', 'L'): -2, ('H', 'R'): 0, ('W', 'H'): -2, ('H', 'N'): 1,
+    ('W', 'T'): -2, ('T', 'T'): 5, ('S', 'F'): -2, ('W', 'P'): -4,
+    ('L', 'D'): -4, ('B', 'I'): -3, ('L', 'H'): -3, ('S', 'N'): 1,
+    ('B', 'T'): -1, ('L', 'L'): 4, ('Y', 'K'): -2, ('E', 'Q'): 2,
+    ('Y', 'G'): -3, ('Z', 'S'): 0, ('Y', 'C'): -2, ('G', 'D'): -1,
+    ('B', 'V'): -3, ('E', 'A'): -1, ('Y', 'W'): 2, ('E', 'E'): 5,
+    ('Y', 'S'): -2, ('C', 'N'): -3, ('V', 'C'): -1, ('T', 'H'): -2,
+    ('P', 'R'): -2, ('V', 'G'): -3, ('T', 'L'): -1, ('V', 'K'): -2,
+    ('K', 'Q'): 1, ('R', 'A'): -1, ('I', 'R'): -3, ('T', 'D'): -1,
+    ('P', 'F'): -4, ('I', 'N'): -3, ('K', 'I'): -3, ('M', 'D'): -3,
+    ('V', 'W'): -3, ('W', 'W'): 11, ('M', 'H'): -2, ('P', 'N'): -2,
+    ('K', 'A'): -1, ('M', 'L'): 2, ('K', 'E'): 1, ('Z', 'E'): 4,
+    ('X', 'N'): -1, ('Z', 'A'): -1, ('Z', 'M'): -1, ('X', 'F'): -1,
+    ('K', 'C'): -3, ('B', 'Q'): 0, ('X', 'B'): -1, ('B', 'M'): -3,
+    ('F', 'C'): -2, ('Z', 'Q'): 3, ('X', 'Z'): -1, ('F', 'G'): -3,
+    ('B', 'E'): 1, ('X', 'V'): -1, ('F', 'K'): -3, ('B', 'A'): -2,
+    ('X', 'R'): -1, ('D', 'D'): 6, ('W', 'G'): -2, ('Z', 'F'): -3,
+    ('S', 'Q'): 0, ('W', 'C'): -2, ('W', 'K'): -3, ('H', 'Q'): 0,
+    ('L', 'C'): -1, ('W', 'N'): -4, ('S', 'A'): 1, ('L', 'G'): -4,
+    ('W', 'S'): -3, ('S', 'E'): 0, ('H', 'E'): 0, ('S', 'I'): -2,
+    ('H', 'A'): -2, ('S', 'M'): -1, ('Y', 'L'): -1, ('Y', 'H'): 2,
+    ('Y', 'D'): -3, ('E', 'R'): 0, ('X', 'P'): -2, ('G', 'G'): 6,
+    ('G', 'C'): -3, ('E', 'N'): 0, ('Y', 'T'): -2, ('Y', 'P'): -3,
+    ('T', 'K'): -1, ('A', 'A'): 4, ('P', 'Q'): -1, ('T', 'C'): -1,
+    ('V', 'H'): -3, ('T', 'G'): -2, ('I', 'Q'): -3, ('Z', 'T'): -1,
+    ('C', 'R'): -3, ('V', 'P'): -2, ('P', 'E'): -1, ('M', 'C'): -1,
+    ('K', 'N'): 0, ('I', 'I'): 4, ('P', 'A'): -1, ('M', 'G'): -3,
+    ('T', 'S'): 1, ('I', 'E'): -3, ('P', 'M'): -2, ('M', 'K'): -1,
+    ('I', 'A'): -1, ('P', 'I'): -3, ('R', 'R'): 5, ('X', 'M'): -1,
+    ('L', 'I'): 2, ('X', 'I'): -1, ('Z', 'B'): 1, ('X', 'E'): -1,
+    ('Z', 'N'): 0, ('X', 'A'): 0, ('B', 'R'): -1, ('B', 'N'): 3,
+    ('F', 'D'): -3, ('X', 'Y'): -1, ('Z', 'R'): 0, ('F', 'H'): -1,
+    ('B', 'F'): -3, ('F', 'L'): 0, ('X', 'Q'): -1, ('B', 'B'): 4
+}
+
+def glob(s, t):
+    alignments = pairwise2.align.globalds(s, t, blosum62, -5, -5)
+    return(int(alignments[0][2]))
+
+input_formated = fasta('rosalind_glob.txt', 'results.txt')
+s = input_formated[0][1]
+t = input_formated[1][1]
+print(glob(s, t))
+
+16) MULT
+# I obviously had to employ MAFFT (Multiple Alignment using Fast Fourier Transform) algorithm in order to align the strings how
+#rosalind wanted. I then fed these into the simple edit distance derived calculator which accounts for the gap open and gap extension penlties.
+#https://www.ebi.ac.uk/Tools/msa/mafft/
+
+def mult(l):
+    score = 0
+    for i in range(0, len(l)-1):
+        for j in range(i+1, len(l)):
+            for k in range(len(l[j])):
+                if l[i][k] != l[j][k]:
+                    score -= 1
+    print(score)
+    for x in range(len(l)):
+        print(l[x])
+        
+aligned = open('aligned.txt', 'r').readline().split(' ')
+for x in aligned:
+    x.strip().split(' ')
+mult(aligned)
+
+***17) IPBR
+
+def iprb(k, m, n):
+    population = (['AA'] * k) + (['Aa'] * m) + (['aa'] * n)
+    all_children = []
+    for parent1 in population:
+        chosen = population[:]
+        chosen.remove(parent1)
+        for parent2 in chosen:
+            children = itertools.product(parent1, parent2)
+            all_children.extend([''.join(c) for c in children])
+    dominants = filter(lambda c: 'A' in c, all_children)
+    print (float(len(list(dominants))) / len(all_children))

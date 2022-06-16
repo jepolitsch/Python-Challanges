@@ -1,0 +1,255 @@
+#1) FIBO
+
+def fibo(n):
+    fib = (0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89,
+               144, 233, 377, 610, 987, 1597, 2584, 4181,
+               6765, 10946, 17711, 28657, 46368, 75025)
+    print(fib[n])		
+		
+#2) INS
+
+def ins(arr):
+    count = 0
+    for i in range(n):
+        for j in range(i + 1, n):
+            if (arr[i] > arr[j]):
+                count += 1
+            else:
+                count = count
+    return (count)
+
+mydata = open('rosalind_ins.txt', "r")
+line = mydata.readlines()
+n = int(line[0])
+arr = list(map(int, line[1].rstrip().split()))
+mydata.close()
+print(ins(arr))
+
+
+#3) MAJ
+
+def maj(arr):
+    ret = []
+    for x in arr:
+        if x.count(most_frequent(x)) > m/2:
+            ret.append(most_frequent(x))
+        else:
+            ret.append('-1')
+    return(ret)
+
+mydata = open('rosalind_maj.txt', "r")
+line = mydata.readlines()
+first = str(line[0]).split()
+n = int(first[0])
+m = int(first[1])
+arr = []
+for x in range(1, n+1):
+    linex = (line[x]).strip().split()
+    arr.append(linex)
+mydata.close()
+results = open('results.txt', 'w')
+data = (' '.join(maj(arr)))
+results.write(str(data))
+results.close()
+
+
+#4) MER
+
+def most_frequent(List):
+    counter = 0
+    num = List[0]
+
+    for i in List:
+        curr_frequency = List.count(i)
+        if (curr_frequency > counter):
+            counter = curr_frequency
+            num = i
+
+    return num
+    
+def mer(arr1, arr2):
+    arr3 = list(arr1 + arr2)
+    arr3 = sorted(arr3)
+    return((str(arr3).replace(',','')))
+
+mydata = open('rosalind_mer.txt', "r")
+line = mydata.readlines()
+arr2 = list(map(int, line[3].rstrip().split()))
+arr1 = list(map(int, line[1].rstrip().split()))
+mydata.close()
+
+results = open('results.txt', 'w')
+data = str(mer(arr1, arr2)).strip().split(' ')
+data = (' '.join (data))
+results.write(str(data))
+results.close()
+
+#5) 2SUM
+
+def tsum(arr):
+    ret = -1
+    for x in arr:
+        y = -x
+        if y in arr and 1<=arr.index(x)+1<arr.index(y)+1<=n:
+            ret = (arr.index(x)+1, arr.index(y)+1)
+            ret = str(ret).rstrip().replace(',','').replace('(','').replace(')','')
+        else:
+            if (x == 0) and arr.count(0) >= 2:
+                ret = (arr.index(x)+1, arr.index(0, (arr.index(x)+1))+1)
+                ret = str(ret).rstrip().replace(',', '').replace('(', '').replace(')', '')
+    return (ret)
+
+mydata = open('rosalind_2sum.txt', "r")
+results = open('results.txt', 'w')
+line = mydata.readlines()
+first = (line[0]).split()
+(k, n) = (int(first[0]), int(first[1]))
+for x in range(1, k+1):
+    arr = list(map(int, line[x].rstrip().split()))
+    results.write(str(tsum(arr)))
+    results.write('\n')
+mydata.close()
+results.close()
+
+#6) BINS
+
+def bins(sort_arr, int_arr):
+    ret = list()
+    for x in int_arr:
+        if x in sort_arr:
+            ret.append(sort_arr.index(x)+1)
+        else:
+            ret.append(-1)
+    return(ret)
+
+mydata = open('rosalind_bins.txt', "r")
+line = mydata.readlines()
+n = int(line[0])
+m = int(line[1])
+sort_arr = list(map(int, line[2].rstrip().split()))
+int_arr = list(map(int, line[3].rstrip().split()))
+mydata.close()
+data = (bins(sort_arr, int_arr))
+results = open('results.txt', 'w')
+for x in data:
+    results.write(str(x)+' ')
+results.close()
+
+#7) MS
+
+def ms(arr, n):
+    half = int(n/2)
+    first = sorted(arr[0:((half))])
+    second = sorted(arr[half:n])
+    return(sorted(first+second))
+
+data = open('rosalind_ms.txt', 'r')
+result = open('results.txt', 'w')
+line = data.readlines()
+first = line[0].split()
+n = int(first[0])
+arr = list(map(int, line[1].rstrip().split()))
+add = ms(arr, n)
+result.write(''.join(str(add).replace(',','').replace('[','').replace(']','')))
+result.close()
+
+#8) PAR
+
+def par(arr, k):
+    new = []
+    for x in arr:
+        if x < k:
+            new.insert(0, x)
+        else:
+            new.append(x)
+    return(new)
+    
+data = open('rosalind_par.txt', 'r')
+result = open('results.txt', 'w')
+line = data.readlines()
+k = int(line[0])
+arr = list(map(int, line[1].rstrip().split()))
+print(par(arr, k))
+
+#9) 3SUM
+
+def threesum(arr):
+    x = [-1]
+    setarr = sorted(set(arr))
+    for lst in itertools.combinations(setarr, 3):
+        if sum(lst) == 0:
+            x = [arr.index(lst[0])+1 ,arr.index(lst[1])+1, arr.index(lst[2])+1]
+            return(x)
+    return(x)
+    
+data = open('rosalind_3sum.txt', 'r')
+result = open('results.txt', 'w')
+line = data.readlines()
+first = list(map(int, line[0].rstrip().split()))
+n = int(first[0])
+for k in range(n):
+    arr = tuple(map(int, line[k+1].split()))
+    result.write(((freesum(arr)).replace(',','').replace('[','').replace(']','')))
+    result.write('\n')
+result.close()
+
+
+#10) INV
+
+def inv(arr):
+    arr = [int(i) for i in arr]
+    sortarr = sorted(arr)
+    ret = 0
+    while len(arr) > 0:
+        b = sortarr.index(arr[0])
+        ret += b
+        sortarr.pop(sortarr.index(arr[0]))
+        arr.pop(0)
+    return(ret)
+
+data = open('rosalind_inv.txt', 'r')
+result = open('results.txt', 'w')
+line = data.readlines()
+k = int(line[0])
+arr = list(map(int, line[1].rstrip().split()))
+print(inv(arr))
+result.write(''.join(str(add).replace(',','').replace('[','').replace(']','')))
+result.close()
+
+
+#11) PAR3
+
+def par3(arr, k):
+    a, b, c, d = [], [], [], []
+    for x in arr:
+        if x < k:
+            a.append(x)
+        elif x == k:
+            b.append(x)
+        else:
+            c.append(x)
+    d = [a+b+c]
+    return (str(d))
+    
+data = open('rosalind_par3.txt', 'r')
+result = open('results.txt', 'w')
+line = data.readlines()
+arr = list(map(int, line[1].rstrip().split()))
+k = int(arr[0])
+result.write((''.join(par3(arr, k)).replace(',','').replace('[','').replace(']','')))
+result.close()
+
+#12) MED
+
+def med(arr, k):
+    sortarr = sorted(arr)
+    return(sortarr[k-1])
+
+data = open('rosalind_med.txt', 'r')
+line = data.readlines()
+arr = list(map(int, line[1].rstrip().split()))
+n = line[0]
+k = int(line[2])
+print(med(arr,k))
+
+

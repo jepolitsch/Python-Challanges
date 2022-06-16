@@ -1,0 +1,428 @@
+1) Solve Me First:
+
+def solveMeFirst(a,b):
+	return(a+b)
+
+
+num1 = int(input())
+num2 = int(input())
+res = solveMeFirst(num1,num2)
+print(res)
+
+2)Simple Array Sum:
+
+def simpleArraySum(ar):
+    sum = 0
+    for k in range(ar_count):
+        b = int(ar[k])
+        sum += b
+    return(sum)
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    ar_count = int(input())
+
+    ar = list(map(int, input().rstrip().split()))
+
+    result = simpleArraySum(ar)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
+    
+   
+3) compare the triplets:
+
+def compareTriplets(a, b):
+    scorea = 0
+    scoreb = 0
+    for k in range(len(a)):
+        if a[k] > b[k]:
+            scorea += 1
+        if a[k] < b[k]:
+            scoreb += 1
+    return(str(scorea), str(scoreb))
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    a = list(map(int, input().rstrip().split()))
+
+    b = list(map(int, input().rstrip().split()))
+
+    result = compareTriplets(a, b)
+
+    fptr.write(' '.join(map(str, result)))
+    fptr.write('\n')
+
+    fptr.close()
+    
+4) A very big sum:
+
+def aVeryBigSum(ar):
+    return(sum(ar))
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    ar_count = int(input())
+
+    ar = list(map(int, input().rstrip().split()))
+
+    result = aVeryBigSum(ar)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
+    
+5) Mini-Max Sum:
+
+def miniMaxSum(arr):
+    arr = list(arr)
+    maxi = max(arr)
+    mini = min(arr)
+    maxl = sum(arr)-mini
+    minl = sum(arr)-maxi
+    print(minl, maxl)
+
+if __name__ == '__main__':
+    arr = list(map(int, input().rstrip().split()))
+    miniMaxSum(arr)
+    
+6) Plus Minus
+import math
+
+def plusMinus(arr):
+    positive = 0
+    negative = 0
+    zero = 0
+    len_arr =len(arr)
+    for i in range(n):
+        if arr[i] > 0:
+            positive += 1
+        elif arr[i] == 0:
+            zero += 1
+        elif arr[i] < 0:
+            negative += 1
+    print("%.6f" % (positive/len_arr))
+    print("%.6f" % (negative/len_arr))
+    print("%.6f" % (zero/len_arr))
+
+if __name__ == '__main__':
+    n = int(input())
+    arr = list(map(int, input().rstrip().split()))
+    plusMinus(arr)
+
+7) Birthday Cake Candles:
+
+import math
+import os
+import random
+import re
+import sys
+
+def birthdayCakeCandles(candles):
+    maxi = max(candles)
+    return(candles.count(maxi))
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    candles_count = int(input().strip())
+
+    candles = list(map(int, input().rstrip().split()))
+
+    result = birthdayCakeCandles(candles)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
+8) Time conversion:
+
+def timeConversion(s):
+    ap = s[8:]
+    hr = int(s[0:2])
+    if ap == 'PM':
+        if hr ==12:
+            return(s[0:8])
+        else:
+            hr = hr + 12
+        return(str(hr)+s[2:8])
+    elif hr == 12:
+        return('00'+s[2:8])
+    else:
+        return(s[0:8])
+
+if __name__ == '__main__':
+    f = open(os.environ['OUTPUT_PATH'], 'w')
+
+    s = input()
+
+    result = timeConversion(s)
+
+    f.write((result) + '\n')
+
+    f.close()
+
+9) Staircase:
+
+import math
+import os
+import random
+import re
+import sys
+
+def staircase(n):
+    c = 1
+    for x in range(0, n):
+        print(' '*(n-x-1)+'#'*c)
+        c += 1
+if __name__ == '__main__':
+    n = int(input())
+
+    staircase(n)
+
+10) Diagonal Difference:
+
+def diagonalDifference(arr):
+    one = 0
+    two = 0
+    for x in range(n):
+        one += arr[x][x]
+        two += arr[x][n-1-x]
+    return(abs(one-two))
+    
+    
+11) Intro to Tutorial challanges:
+
+def introTutorial(V, arr):
+    return(int(arr.index(V)))
+    
+    
+12) Counting Sort 1:
+
+def countingSort(arr):
+    blankarr = [0]*100
+    for i in arr:
+        blankarr[i]+=1
+    return(blankarr)
+    
+13) Counting Sort 2:
+
+def countingSort(arr):
+    retu = []
+    for k in arr:
+        retu.append(k)
+    return(sorted(retu))
+    
+14) Correctness and the Loop Invariant:
+ 
+ def insertion_sort(l):
+    for i in range(1, len(l)):
+        j = i-1
+        key = l[i]
+        while (j >= 0) and (l[j] > key):
+           l[j+1] = l[j]
+           j -= 1
+        l[j+1] = key
+	
+15) Quicksort 1:
+
+def quickSort(arr):
+    return(sorted(arr))
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    n = int(input())
+
+    arr = list(map(int, input().rstrip().split()))
+
+    result = quickSort(arr)
+
+    fptr.write(' '.join(map(str, result)))
+    fptr.write('\n')
+
+    fptr.close()
+    
+16) Find the median:
+
+def findMedian(arr):
+    return(statistics.median(arr))
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    n = int(input())
+
+    arr = list(map(int, input().rstrip().split()))
+
+    result = findMedian(arr)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
+    
+17) Big Sorting:
+ 
+ def bigSorting(unsorted):
+    k = list()
+    for s in sorted(unsorted, key=int):
+        k.append(s)
+    return(k)
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    n = int(input())
+
+    unsorted = []
+
+    for _ in range(n):
+        unsorted_item = input()
+        unsorted.append(unsorted_item)
+
+    result = bigSorting(unsorted)
+
+    fptr.write('\n'.join(result))
+    fptr.write('\n')
+
+    fptr.close()
+
+18) Insertion Sort 1:
+
+def insertionSort1(n, arr):
+    target = arr[-1]
+    idx = n-2
+    for x in range(n-1):
+        if (idx >= 0) and (target < arr[idx]):
+            arr[idx+1] = arr[idx]
+            print(' '.join(map(str, arr)))
+            idx -= 1
+    arr[idx+1] = target
+    print(' '.join(map(str, arr)))
+    
+19) Insertion sort 2:
+    
+def insertionSort2(n, arr):
+    runs = n
+    arra = arr
+    for i in range(1,len(arra)):
+        count = arra[i]
+        track = i-1
+        while (track >= 0) and (arra[track] > count) :
+            arra[track+ 1] = arra[track]
+            track = track-1
+        arra[track+ 1] = count
+        for x in range(len(arra)):
+            print(arra[x], end= ' ')
+        print('\n', end ='')
+	
+20) Running Time of Algorithms
+
+def runningTime(arr):
+    count = 0
+    for i in range(n): 
+        for j in range(i + 1, n): 
+            if (arr[i] > arr[j]): 
+                count += 1
+            else:
+                count = count
+    return(count)
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    n = int(input())
+
+    arr = list(map(int, input().rstrip().split()))
+
+    result = runningTime(arr)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
+    
+ 21) CamelCase:
+ 
+ def camelcase(s):
+    string = ''
+    for x in s:
+        if x.isupper():
+            string += (' '+x)
+        else:
+            string += (x)
+    lst = string.split(' ')
+    return(len(lst))
+
+22) Strong Password:
+
+def minimumNumber(n, password):
+    numbers = "0123456789"
+    lower_case = "abcdefghijklmnopqrstuvwxyz"
+    upper_case = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    special_characters = "!@#$%^&*()-+"
+    needed = 0
+    num = 1
+    low = 1
+    up = 1
+    spec = 1
+    if len(password) < 6:
+        needed = 6-n
+    for x in password:
+        if x in numbers:
+            num = 0
+        elif x in lower_case:
+            low = 0
+        elif x in upper_case:
+            up = 0
+        elif x in special_characters:
+            spec = 0
+    if ((num+low+spec+up) > needed) or (needed == 0):
+        return(num+low+spec+up)
+    else:
+        return (needed)
+23) Mars Exploration:
+ 
+ def marsExploration(s):
+    count = 0
+    for x in range(0, len(s), 3):
+        if s[x:x+3] == 'SOS':
+            count = count
+        else:
+            k = s[x:x+3]
+            if k[0] != 'S':
+                count = count + 1
+            if k[1] != 'O':
+                count = count + 1
+            if k[2] != 'S':
+                count = count + 1
+            print(k)
+    return(count)
+    
+24) Panagrams:
+
+def pangrams(s):
+    pan = set()
+    for z in s:
+        z = str(z)
+        pan.add(z.lower())
+    if len(pan) >= 27:
+        return('pangram')
+    else:
+        return('not pangram')
+    
+25) Alternative Charactors:
+
+def alternatingCharacters(s):
+    count = 0
+    for x in range(len(s)-1):
+        if s[x] == 'A':   
+            if s[x+1] == 'A':
+                count += 1
+        else:
+            if s[x+1] == 'B':
+                count += 1
+
+    return(count)
+
+
+
+
+
+
